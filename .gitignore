@@ -1,3 +1,6 @@
 lk_off/
-__pycashe__/
+lk/__pycache__/
+lk/migrations/__pycache__/
+lk_yaroffice/__pycache__/
+__pycache__/
 .idea/
