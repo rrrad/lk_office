@@ -1,0 +1,17 @@
+{% extends "lk/base.html" %}
+{% load bootstrap5 %}
+{% block page_header %}
+<p> НОВАЯ ЗАЯВКА</p>
+{% endblock page_header %}
+
+{% block content %}
+
+<form class="form" action="{% url 'lk:new_order' %}" method="post">
+    {% csrf_token %}
+    {% bootstrap_form form %}
+    {% buttons %}
+    <button class="btn btn-primary" name="submit">добавить</button>
+    {% endbuttons %}
+</form>
+
+{% endblock content %}

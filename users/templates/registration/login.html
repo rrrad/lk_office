@@ -1,0 +1,18 @@
+{% extends "lk/base.html" %}
+{% load bootstrap5 %}
+{% block page_header %}
+<p>Вход в кабинет</p>
+{% endblock page_header %}
+
+{% block content %}
+
+<form class="form" action="{% url 'users:login' %}" method="post">
+    {% csrf_token %}
+    {% bootstrap_form form %}
+    {% buttons %}
+    <button class="btn btn-primary" name="submit">войти</button>
+    {% endbuttons %}
+    <input type="hidden" name="next" value="{% url 'lk:index' %}" />
+</form>
+
+{% endblock content %}

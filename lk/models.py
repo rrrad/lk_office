@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 class Order (models.Model):
     """ запрос который формирует пользователь"""
@@ -30,7 +31,7 @@ class Order (models.Model):
     )
 
     """"дата выполнения планируемая"""
-    date_added = models.DateTimeField(blank=True, null=True)
+    date_plane = models.DateTimeField(blank=True, null=True, default=None)
 
     """"статус (-не принято;-принято;-в работе;-выполнено)"""
     AWAIT = 'не принято'
@@ -51,9 +52,10 @@ class Order (models.Model):
     )
 
     """"дата выполнено"""
-    date_added = models.DateTimeField(blank=True, null=True)
+    date_relise = models.DateTimeField(blank=True, null=True, default=None)
 
     """"кто создал?"""
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
         """строковое представление модели"""
