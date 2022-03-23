@@ -5,9 +5,13 @@ from .forms import OrderForm, EditOrderForm
 from django.http import Http404
 from django.db.models import Q
 import datetime
+from django.core.mail import send_mail
+from django.core.paginator import Paginator
+
 
 def index(request):
     return render(request, 'lk/index.html')
+
 
 @login_required
 def orders(request):
@@ -33,26 +37,54 @@ def orders(request):
         editable = True
     else:
         orders = Order.objects.filter(owner=request.user).order_by('-date_added')
-    context = {'orders': orders, 'editable': editable}
+
+    p = Paginator(orders, 20)
+    page = request.GET.get('page')
+    orders_page = p.get_page(page)
+    context = {'orders': orders_page, 'editable': editable}
     return render(request, 'lk/orders.html', context)
+
 
 @login_required
 def new_order(request):
     if request.method != 'POST':
-        #Данные не отправлялись; создается пустая форма.
+        # Данные не отправлялись; создается пустая форма.
         form = OrderForm()
     else:
-        #Отправлены данные POST; обработать данные.
+        # Отправлены данные POST; обработать данные.
         form = OrderForm(data=request.POST)
         if form.is_valid():
             new_o = form.save(commit=False)
             new_o.owner = request.user
             new_o.save()
+            send_message_to_service(form.cleaned_data.get("department"))
             return redirect('lk:orders')
 
-    #Вывести пустую или недействительную форму
+    # Вывести пустую или недействительную форму
     context = {'form': form}
     return render(request, 'lk/new_order.html', context)
+
+
+def send_message_to_service(service):
+    email = "rrad73@yandex.ru"
+    if service == 1:
+        email = "rrad73@yandex.ru"
+    if service == 2:
+        email = "rrad73@yandex.ru"
+    if service == 3:
+        email = "rrad73@yandex.ru"
+    if service == 4:
+        email = "rrad73@yandex.ru"
+    if service == 5:
+        email = "rrad73@yandex.ru"
+    if service == 6:
+        email = "rrad73@yandex.ru"
+    send_mail('ЛК Офисный центр',
+              str(service),
+              'from@yaroffice.com',
+              [email],
+              fail_silently=False, )
+
 
 @login_required
 def edit_order(request, order_id):
