@@ -4,3 +4,4 @@ lk/migrations/__pycache__/
 lk_yaroffice/__pycache__/
 __pycache__/
 .idea/
+.env

@@ -7,6 +7,8 @@ from django.db.models import Q
 import datetime
 from django.core.mail import send_mail
 from django.core.paginator import Paginator
+from django.conf import settings
+import os
 
 
 def index(request):
@@ -68,20 +70,20 @@ def new_order(request):
 def send_message_to_service(service):
     email = "rrad73@yandex.ru"
     if service == 1:
-        email = "rrad73@yandex.ru"
+        email = settings.EMAIL_HOST_CLEANING
     if service == 2:
-        email = "rrad73@yandex.ru"
+        email = settings.EMAIL_HOST_INTERNET
     if service == 3:
-        email = "rrad73@yandex.ru"
+        email = settings.EMAIL_HOST_SANTECHNIC
     if service == 4:
-        email = "rrad73@yandex.ru"
+        email = settings.EMAIL_HOST_ELECTRIC
     if service == 5:
-        email = "rrad73@yandex.ru"
+        email = settings.EMAIL_HOST_REMONT
     if service == 6:
-        email = "rrad73@yandex.ru"
+        email = settings.EMAIL_HOST_DOCUMENTS
     send_mail('ЛК Офисный центр',
-              str(service),
-              'from@yaroffice.com',
+              'новое сообщение',
+              'lk@yaroffice.ru',
               [email],
               fail_silently=False, )
 
@@ -109,3 +111,9 @@ def edit_order(request, order_id):
     else:
         raise Http404
     return render(request, 'lk/edit_order.html', context)
+
+
+def act(request):
+    context = {'pass': settings.EMAIL_PORT, 'email': settings.EMAIL_PORT,
+               'seret': settings.EMAIL_PORT}
+    return render(request, 'lk/info.html', context)
