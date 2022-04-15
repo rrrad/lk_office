@@ -1,0 +1,45 @@
+{% extends "lk/base.html" %}
+
+{% block page_header %}
+<h3>{{type}}</h3>
+{% endblock page_header %}
+
+{% block content %}
+    {% for order in orders %}
+        <div class="card mb-3">
+            <div class="card-header">
+                {{ order.client }} | {{ order.month }} | {{ order.year }}
+                {% if type == "СПИСОК АКТОВ" %}
+                <a class="btn btn-outline-dark float-end" href="{% url 'lk:pdf_act' order.id %}" role="button">Просмотр</a>
+                {% else %}
+                <a class="btn btn-outline-dark float-end" href="{% url 'lk:pdf_invoice' order.id %}" role="button">Просмотр</a>
+                {% endif %}
+            </div>
+            <div class="card-body">
+            {{ order.service|linebreaks }}
+            </div>
+        </div>
+
+    {% empty %}
+        <li>Нет сформированных докумнетов</li>
+    {% endfor %}
+<br/><br/>
+
+
+<nav aria-label="Page navigation example">
+  <ul class="pagination">
+{% if orders.has_previous %}
+<li class="page-item"><a class="page-link" href="?page=1">&laquo Первая</a></li>
+<li class="page-item"><a class="page-link" href="?page={{ orders.previous_page_number }}">Предыдущая</a></li>
+{% endif %}
+      <li class="page-item"><a class="page-link" href="">{{ orders }}</a></li>
+{% if orders.has_next %}
+<li class="page-item"><a class="page-link" href="?page={{ orders.next_page_number }}">Следующая</a></li>
+<li class="page-item"><a class="page-link" href="?page={{ orders.paginator.num_pages }}">Последняя &raquo</a></li>
+{% endif %}
+      </ul>
+</nav>
+
+
+
+{% endblock content %}

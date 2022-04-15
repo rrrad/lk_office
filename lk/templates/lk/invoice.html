@@ -1,0 +1,26 @@
+{% extends "lk/base.html" %}
+{% load bootstrap5 %}
+
+{% block page_header %}
+<h3>СЧЕТ</h3>
+
+{% endblock page_header %}
+
+{% block content %}
+        {% if metod == 'd' %}
+            <form class="form" action="{% url 'lk:invoiced' id%}" method="post">
+        {% endif %}
+        {% if metod == 'e' %}
+            <form class="form" action="{% url 'lk:invoicee' id%}" method="post">
+        {% endif %}
+        {% if metod == 'n' %}
+            <form class="form" action="{% url 'lk:invoice' id%}" method="post">
+        {% endif %}
+    {% csrf_token %}
+    {% bootstrap_form form %}
+    {% buttons %}
+    <button class="btn btn-primary" name="submit">изменить</button>
+    {% endbuttons %}
+</form>
+
+{% endblock content %}

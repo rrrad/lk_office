@@ -1,0 +1,54 @@
+{% extends "lk/base.html" %}
+
+{% block page_header %}
+<h3>{{ name }}</h3>
+{% endblock page_header %}
+
+{% block content %}
+
+<div class="row border-bottom">
+  <div class="col-xs-6 col-sm-3"><h5>СПИСОК СЧЕТОВ</h5></div>
+  <div class="col-xs-6 col-sm-4">
+      <a class="btn-sm btn-outline-dark me-auto" href="{% url 'lk:invoice' user_id %}" role="button">ADD</a>
+  </div>
+</div>
+
+<ul class="list-group list-group-flush">
+    {% for order in orders %}
+        <li class="list-group-item">
+            {{ order.client }} | {{ order.month }} | {{order.service}}
+            <span class="ms-auto">
+            <a class="btn btn-outline-dark float-end" href="{% url 'lk:invoicee' order.id %}" role="button">Edit</a>
+            <a class="btn btn-outline-dark float-end" href="{% url 'lk:invoiced' order.id %}" role="button">Duble</a>
+            </span>
+        </li>
+    {% empty %}
+        <li>Нет сформированных заявок</li>
+    {% endfor %}
+    </ul>
+<br/><br/>
+<div class="row border-bottom">
+  <div class="col-xs-6 col-sm-3"><h5>СПИСОК АКТОВ</h5></div>
+  <div class="col-xs-6 col-sm-4">
+      <a class="btn-sm btn-outline-dark me-auto" href="{% url 'lk:act_new' user_id %}" role="button">ADD</a>
+  </div>
+</div>
+<ul class="list-group list-group-flush">
+    {% for order in acts %}
+        <li class="list-group-item">
+            {{ order.client }} | {{ order.month }} | {{order.service}}
+            <span class="ms-auto">
+            <a class="btn btn-outline-dark float-end" href="{% url 'lk:acte' order.id %}" role="button">Edit</a>
+            <a class="btn btn-outline-dark float-end" href="{% url 'lk:actd' order.id %}" role="button">Duble</a>
+            </span>
+        </li>
+    {% empty %}
+        <li class="list-group-item">Нет сформированных заявок</li>
+    {% endfor %}
+    </ul>
+<br/><br/>
+
+
+
+
+{% endblock content %}

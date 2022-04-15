@@ -20,13 +20,32 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <ul class="navbar-nav me-auto align-items-center">
+                    {% if user.is_authenticated %}
                     <li class="nav-item">
                     <a class="nav-link" href="{% url 'lk:orders' %}">
                         список заявок</a>
                     </li>
+                    {% if user.username in 'remont, electric, santechnic, cleaning, internet, documents' %}
+                        {% if user.username in 'documents' %}
+                            <li class="nav-item">
+                            <a class="nav-link" href="{% url 'lk:users' %}">
+                                арендаторы</a>
+                            </li>
+                        {% endif %}
+                    {% else %}
+                    <li class="nav-item">
+                    <a class="nav-link" href="{% url 'lk:invoices' %}">
+                        список счетов</a>
+                    </li>
+                    <li class="nav-item">
+                    <a class="nav-link" href="{% url 'lk:acts' %}">
+                        список актов</a>
+                    </li>
                     <li class="nav-item">
                     <a class="nav-link" href="{% url 'lk:new_order' %}">новая заявка</a>
                     </li>
+                    {% endif %}
+                    {% endif %}
                 </ul>
                 <ul class="navbar-nav ms-auto align-items-center">
                     {% if user.is_authenticated %}
