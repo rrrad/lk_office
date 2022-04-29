@@ -68,7 +68,7 @@ class Invoice (models.Model):
     date_document = models.DateTimeField(blank=True, null=True, default=None)
 
     """номер договора"""
-    number_invoice = models.CharField(max_length=10)
+    number_invoice = models.CharField(max_length=20)
 
     """номер документа"""
     number_document = models.CharField(max_length=10)
@@ -145,7 +145,7 @@ class Act (models.Model):
     date_document = models.DateTimeField(blank=True, null=True, default=None)
 
     """номер договора"""
-    number_invoice = models.CharField(max_length=10)
+    number_invoice = models.CharField(max_length=20)
 
     """номер документа"""
     number_document = models.CharField(max_length=10)

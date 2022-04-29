@@ -1,6 +1,9 @@
 {% extends "lk/base.html" %}
 
 {% block page_header %}
+<script>
+         window.onunload = function(){};
+</script>
 <h3>{{type}}</h3>
 {% endblock page_header %}
 
@@ -10,9 +13,11 @@
             <div class="card-header">
                 {{ order.client }} | {{ order.month }} | {{ order.year }}
                 {% if type == "СПИСОК АКТОВ" %}
-                <a class="btn btn-outline-dark float-end" href="{% url 'lk:pdf_act' order.id %}" role="button">Просмотр</a>
+                <a class="btn btn-outline-dark float-end" href="{% url 'lk:pdf_act' order.id %}"
+                   onclick="document.getElementById('myDiv').style.display = 'block'; myResult = 'yes'" role="button">Просмотр</a>
                 {% else %}
-                <a class="btn btn-outline-dark float-end" href="{% url 'lk:pdf_invoice' order.id %}" role="button">Просмотр</a>
+                <a class="btn btn-outline-dark float-end" href="{% url 'lk:pdf_invoice' order.id %}"
+                   onclick="document.getElementById('myDiv').style.display = 'block'; myResult = 'yes'" role="button">Просмотр</a>
                 {% endif %}
             </div>
             <div class="card-body">
@@ -40,6 +45,16 @@
       </ul>
 </nav>
 
+<div style="position: fixed; width: 100%; height: 100%; left: 0; top: 0;
+            background: rgba(51,51,51,0.7); z-index: 10; display:none;"
+     id="myDiv" class="animate-bottom">
 
+  <h2 style="position: fixed; color: white; font-weight: bold; left: 30%; top: 40%;">Подготовка документа
+        <div class="spinner-border text-light" role="status">
+
+        </div>
+  </h2>
+
+</div>
 
 {% endblock content %}

@@ -8,6 +8,9 @@
     {% for order in orders %}
         <div class="card mb-3">
             <div class="card-header">
+                {% if editable %}
+                {{ order.owner.username }}  |
+                {% endif %}
                 {{ order.date_added|date:'M d, Y H:i' }}
                 <span class="ms-3">{{ order.status }}</span>
                 {% if order.date_relise != None %}
